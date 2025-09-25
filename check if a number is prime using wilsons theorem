@@ -1,0 +1,12 @@
+int fact_mod(int x, int n){
+    if (x <= 1) return 1 % n;
+    int prod = ( (__int128)(x % n) * fact_mod(x - 1, n) );
+    return (int)(prod % n);
+}
+
+bool isPrimeWilsonRec(int n){
+    if (n < 2) return false;
+    if (n == 2 || n == 3) return true;
+    if (n % 2 == 0 || n % 3 == 0) return (n == 2 || n == 3);
+    return fact_mod(n - 1, n) == (n - 1) % n;
+}
