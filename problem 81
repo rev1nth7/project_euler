@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+using i64 = long long;   // safer alias instead of #define
+const int MOD = 1e9 + 7;
+
+
+int main() {
+    
+    vector<vector<int>> arr(80, vector<int>(80));
+    for (int i = 0; i < 80; ++i) {
+        for (int j = 0; j < 80; ++j) {
+            if (!(cin >> arr[i][j])) {
+                cerr << "Expected 80x80 integers on stdin.\n";
+                return 1;
+            }
+        }
+    }
+    vector<long long>prev(80);
+    vector<long long>curr(80);
+    //for 0th row values are the same as the matric
+    prev[0] = arr[0][0];
+    for (int j = 1; j < 80; ++j) {
+        prev[j] = arr[0][j] + prev[j - 1];
+    }
+    for(int i=1;i<80;i++){
+        curr[0]=arr[i][0]+prev[0];
+        for(int j=1;j<80;j++){
+            curr[j]=arr[i][j]+min(prev[j],curr[j-1]);
+        }
+        prev=curr;
+    }
+    cout<<prev[79];
+    return 0;
+}s
